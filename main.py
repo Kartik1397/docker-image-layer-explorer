@@ -3,6 +3,15 @@ import json
 import os
 from pathlib import Path
 
+def run_command(command):
+    return os.popen(command).read()
+
+def get_full_image_id(image_id):
+    output = run_command(f'docker image inspect {image_id}')
+    image_info_json = json.loads(output)
+    full_image_id = image_info_json[0]['Id'].split(':')[1]
+    return full_image_id
+
 parser = argparse.ArgumentParser(
             prog='docker-image-explorer',
             description='List view view content of docker image layers')
@@ -13,7 +22,7 @@ parser.add_argument('--extract', nargs=1, required=False)
 
 args = parser.parse_args()
 
-image_id = args.image_id
+image_id = get_full_image_id(args.image_id)
 layers = args.layer
 extract_to = args.extract
 image_path = f'/tmp/{image_id}.tar'
@@ -28,8 +37,6 @@ if not Path(image_dir).exists():
     Path(image_dir).mkdir(parents=True, exist_ok=True)
     os.system(f'tar -xf {image_path} --directory {image_dir}')
 
-def run_command(command):
-    return os.popen(command).read()
 
 with open(f'{image_dir}/{image_id}.json') as image_json_file:
     image_json = json.loads(image_json_file.read())
