@@ -22,7 +22,7 @@ usage: docker-image-explorer [-h] [--layer LAYER] [--extract EXTRACT] image_id
 # Examples
 
 List layers
-```sh
+```
 $ docker-image-layer-explorer 85f93f2efdc5
 Fetching image...
 Extracting image...
@@ -36,7 +36,7 @@ cbf67576ef5078a32599df9e4ed27665891727aa42c26438c7b8895a462e60f3 /bin/sh -c #(no
 ```
 
 Check content of layer
-```sh
+```
 $ docker-image-layer-explorer 85f93f2efdc5 --layer cbf67576ef5078a32599df9e4ed27665891727aa42c26438c7b8895a462e60f3
 Indexing layers...
 drwxr-xr-x  0 0      0           0 Feb 10 22:16 usr/
@@ -46,7 +46,7 @@ drwxr-xr-x  0 0      0           0 Mar  6 17:58 usr/local/bin/
 ```
 
 Extract/Download layer using --extract argument
-```sh
+```
 $ docker-image-layer-explorer 85f93f2efdc5 --layer cbf67576ef5078a32599df9e4ed27665891727aa42c26438c7b8895a462e60f3 --extract ./
 Indexing layers...
 Extracting layer...
